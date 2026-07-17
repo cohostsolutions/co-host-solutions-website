@@ -1,1458 +1,684 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Co-Host Solutions — Optimized Hosting. Maximum Bookings.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Co-Host Solutions — Professional STR Management in CDO</title>
+  <meta name="description" content="Professional short-term rental management for CDO property owners. We run the marketing, guests, and pricing so your unit earns every possible night.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --deep-red: #9B1C31;
-      --crimson: #8B1D2F;
-      --soft-gold: #CBAF6E;
-      --muted-gold: #D4A24E;
-      --light-beige: #D1C6B1;
-      --warm-beige: #B49B7A;
-      --cream: #F5F0E8;
-      --dark: #2C2418;
-      --text: #3D3020;
+      --color-crimson: #7A1C2E;
+      --color-crimson-dark: #5E1524;
+      --color-crimson-bg: #FDF2F4;
+      --color-gold-dark: #7A6020;
+      --color-gold-light: #E8C96A;
+      --color-gold-pale: #FBF7EE;
+      --color-bg: #FAF8F5;
+      --color-text: #1A1410;
+      --color-text-mid: #4A3F38;
+      --color-text-muted: #8C7B72;
+      --color-border: #E5DDD6;
+      --color-border-dark: #C8B8A8;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--color-bg); font-family: var(--font-body); color: var(--color-text); }
+    a { color: var(--color-crimson); text-decoration: none; }
+    a:hover { color: var(--color-crimson-dark); }
+    img { max-width: 100%; height: auto; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      overflow-x: hidden;
+    /* HEADER */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border);
+      background-color: rgba(255,255,255,0.95);
     }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 4rem;
-      background: rgba(245, 240, 232, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(203, 175, 110, 0.2);
-      transition: all 0.3s ease;
+    .header-inner {
+      max-width: 1120px; margin: 0 auto; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
+    .logo-text {
+      font-family: var(--font-display); font-size: 22px; font-weight: 700;
+      color: var(--color-crimson); letter-spacing: -0.3px;
     }
+    .logo-text span { color: var(--color-text); }
 
-    .nav-logo-flower {
-      width: 36px;
-      height: 36px;
-    }
-
-    .nav-logo-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      color: var(--text);
-      line-height: 1.2;
-    }
-
-    .nav-logo-text span {
-      display: block;
-      background: var(--deep-red);
-      color: white;
-      padding: 0.1em 0.4em;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--deep-red); }
-
-    .nav-cta {
-      background: var(--deep-red);
-      color: white !important;
-      padding: 0.6rem 1.5rem;
-      border-radius: 0;
-      transition: background 0.2s !important;
-    }
-
-    .nav-cta:hover { background: var(--crimson) !important; color: white !important; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding-top: 80px;
-      overflow: hidden;
-    }
-
-    .hero-left {
-      padding: 6rem 4rem 6rem 6rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--soft-gold);
-      font-weight: 500;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--soft-gold);
-    }
-
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 5vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.05;
-      color: var(--dark);
-      margin-bottom: 2rem;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      color: var(--deep-red);
-    }
-
-    .hero-subtitle {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #5a4a35;
-      max-width: 420px;
-      margin-bottom: 3rem;
-      font-weight: 300;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
+    /* BUTTONS */
     .btn-primary {
-      background: var(--deep-red);
-      color: white;
-      padding: 1rem 2.5rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.25s, transform 0.2s;
+      background: var(--color-crimson); color: #fff;
+      font-family: var(--font-body); font-weight: 700; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px;
+      white-space: nowrap; transition: background 0.2s;
       display: inline-block;
     }
-
-    .btn-primary:hover { background: var(--crimson); transform: translateY(-1px); }
-
-    .btn-outline {
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
-      text-decoration: none;
-      padding: 1rem 2rem;
-      border: 1px solid var(--warm-beige);
-      transition: border-color 0.2s, color 0.2s;
+    .btn-primary:hover { background: var(--color-crimson-dark); color: #fff; }
+    .btn-primary-lg {
+      font-size: 16px; padding: 16px 30px; border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(122,28,46,0.25);
     }
 
-    .btn-outline:hover { border-color: var(--soft-gold); color: var(--deep-red); }
-
-    .hero-right {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
+    /* EYEBROW LABELS */
+    .eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--color-gold-dark);
     }
 
-    .hero-right img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+    /* SECTION WRAPPER */
+    .section-inner { max-width: 1120px; margin: 0 auto; padding: 96px 24px; }
+    .section-header { text-align: center; display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px; }
+    .section-header h2 {
+      font-family: var(--font-display); font-size: clamp(28px, 4vw, 38px);
+      font-weight: 700; margin: 0;
     }
 
-    .hero-right::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--cream) 0%, transparent 30%);
+    /* HERO */
+    .hero { max-width: 1120px; margin: 0 auto; padding: 72px 24px 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px; align-items: center; }
+    .hero-content { display: flex; flex-direction: column; gap: 24px; }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(34px, 5vw, 52px);
+      font-weight: 700; line-height: 1.15; color: var(--color-text);
+    }
+    .hero-subtext { font-size: 18px; line-height: 1.65; color: var(--color-text-mid); max-width: 48ch; }
+    .hero-location { font-size: 14px; color: var(--color-text-muted); }
+    .hero-image {
+      min-height: 420px; background: var(--color-crimson-bg); border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted); font-size: 14px; text-align: center; padding: 24px;
+      border: 2px dashed var(--color-border-dark);
     }
 
-    .hero-badge {
-      position: absolute;
-      bottom: 3rem;
-      left: -2rem;
-      z-index: 10;
-      background: var(--dark);
-      color: white;
-      padding: 1.5rem 2rem;
-      max-width: 200px;
+    /* STATS BAR */
+    .stats-bar { background: var(--color-crimson); }
+    .stats-inner { max-width: 1120px; margin: 0 auto; padding: 48px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; text-align: center; }
+    .stat-number { font-family: var(--font-display); font-size: 44px; font-weight: 700; color: #fff; }
+    .stat-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-gold-light); }
+
+    /* OWNER CARDS */
+    .owner-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .owner-card {
+      background: #fff; border: 1px solid var(--color-border); border-radius: 16px;
+      padding: 32px; display: flex; flex-direction: column; gap: 14px;
+      box-shadow: 0 1px 4px rgba(26,20,16,0.08);
     }
+    .owner-card-quote { font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.4; color: var(--color-text); }
+    .owner-card p { font-size: 15px; line-height: 1.65; color: var(--color-text-mid); }
 
-    .hero-badge-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--soft-gold);
-      line-height: 1;
+    /* CYCLE */
+    .cycle-wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 12px; margin-bottom: 40px; }
+    .cycle-item { display: flex; align-items: stretch; gap: 12px; }
+    .cycle-card {
+      background: #fff; border: 1px solid var(--color-border); border-radius: 16px;
+      padding: 24px; display: flex; flex-direction: column; gap: 10px;
+      box-shadow: 0 1px 4px rgba(26,20,16,0.08); width: 300px; max-width: 100%;
     }
-
-    .hero-badge-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--light-beige);
-      margin-top: 0.3rem;
+    .cycle-card-head { display: flex; align-items: center; justify-content: space-between; }
+    .cycle-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--color-crimson); color: #fff;
+      font-family: var(--font-display); font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    /* ── MARQUEE ── */
-    .marquee-strip {
-      background: var(--deep-red);
-      color: white;
-      padding: 0.9rem 0;
-      overflow: hidden;
-      white-space: nowrap;
+    .cycle-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-gold-dark); }
+    .cycle-title { font-family: var(--font-display); font-size: 19px; font-weight: 700; color: var(--color-text); }
+    .cycle-body { font-size: 14px; line-height: 1.6; color: var(--color-text-mid); }
+    .cycle-arrow { display: flex; align-items: center; }
+    .cycle-repeat {
+      background: var(--color-crimson-bg); border: 1px dashed var(--color-crimson);
+      border-radius: 16px; padding: 24px; display: flex; flex-direction: column;
+      gap: 10px; align-items: flex-start; justify-content: center;
+      width: 300px; max-width: 100%;
     }
+    .cycle-repeat-title { font-family: var(--font-display); font-size: 19px; font-weight: 700; color: var(--color-crimson); }
+    .cycle-repeat p { font-size: 14px; line-height: 1.6; color: var(--color-text-mid); }
 
-    .marquee-inner {
-      display: inline-flex;
-      gap: 3rem;
-      animation: marquee 25s linear infinite;
+    /* OWNER DASHBOARD BANNER */
+    .dashboard-banner {
+      background: var(--color-gold-pale); border: 1px solid var(--color-border-dark);
+      border-radius: 16px; padding: 36px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; align-items: center;
     }
+    .dashboard-banner-title { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--color-text); line-height: 1.3; }
+    .you-handle-list { display: flex; flex-direction: column; gap: 12px; }
+    .you-handle-item { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: var(--color-text-mid); }
 
-    .marquee-inner span {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 500;
+    /* EARNINGS */
+    .earnings-section { background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+    .earnings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; margin-bottom: 32px; }
+    .earning-card {
+      background: var(--color-bg); border: 2px solid rgba(160,130,58,0.2);
+      border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 16px;
     }
-
-    .marquee-inner .dot {
-      color: var(--soft-gold);
-      font-size: 1rem;
+    .earning-type { font-size: 15px; font-weight: 700; color: var(--color-text); }
+    .earning-gross { font-family: var(--font-display); font-size: 30px; font-weight: 700; color: var(--color-crimson); line-height: 1.1; }
+    .earning-details { border-top: 1px solid var(--color-border); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .earning-row { display: flex; justify-content: space-between; font-size: 13px; }
+    .earning-row span:first-child { color: var(--color-text-muted); }
+    .earning-row span:last-child { font-weight: 700; color: var(--color-text-mid); }
+    .earning-month { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-gold-dark); }
+    .earnings-note { font-size: 13px; color: var(--color-text-muted); text-align: center; font-style: italic; margin: 0 0 24px; }
+    .earnings-callout {
+      background: var(--color-crimson-bg); border-radius: 14px; padding: 24px 32px;
+      max-width: 760px; margin: 0 auto; display: flex; gap: 16px; align-items: flex-start;
     }
+    .earnings-callout p { font-size: 15px; line-height: 1.65; color: var(--color-text-mid); }
 
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* ── ABOUT ── */
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      min-height: 80vh;
-    }
-
-    .about-images {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-img-main {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .about-img-overlay {
-      position: absolute;
-      bottom: 3rem;
-      right: -1.5rem;
-      width: 55%;
-      border: 6px solid var(--cream);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    }
-
-    .about-content {
-      padding: 6rem 5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: var(--dark);
-      color: white;
-    }
-
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--soft-gold);
-      font-weight: 500;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 30px;
-      height: 1px;
-      background: var(--soft-gold);
-    }
-
-    .about-content .section-label { color: var(--soft-gold); }
-
-    .about-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 3.5vw, 4rem);
-      font-weight: 300;
-      line-height: 1.15;
-      color: white;
-      margin-bottom: 1.5rem;
-    }
-
-    .about-title em { font-style: italic; color: var(--soft-gold); }
-
-    .about-text {
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: #b8a898;
-      font-weight: 300;
-      margin-bottom: 1.5rem;
-    }
-
-    .about-stats {
-      display: flex;
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-      padding-top: 2.5rem;
-      border-top: 1px solid rgba(203,175,110,0.2);
-    }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.8rem;
-      font-weight: 300;
-      color: var(--soft-gold);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8a7a6a;
-      margin-top: 0.3rem;
-    }
-
-    /* ── SERVICES ── */
-    .services {
-      padding: 8rem 6rem;
-      background: var(--cream);
-    }
-
-    .services-header {
-      text-align: center;
-      margin-bottom: 5rem;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 4vw, 4.5rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--dark);
-    }
-
-    .section-title em { font-style: italic; color: var(--deep-red); }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      border: 1px solid var(--light-beige);
-    }
-
-    .service-card {
-      padding: 3rem 2.5rem;
-      border-right: 1px solid var(--light-beige);
-      transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card:last-child { border-right: none; }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--deep-red);
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { background: white; }
-
-    .service-icon {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 1.5rem;
-      color: var(--soft-gold);
-    }
-
-    .service-icon svg { width: 100%; height: 100%; }
-
-    .service-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 1rem;
-    }
-
-    .service-desc {
-      font-size: 0.85rem;
-      line-height: 1.8;
-      color: #6a5a48;
-      font-weight: 300;
-    }
-
-    .service-items {
-      margin-top: 1.5rem;
-      list-style: none;
-    }
-
-    .service-items li {
-      font-size: 0.78rem;
-      color: #5a4a38;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid rgba(203,175,110,0.15);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .service-items li::before {
-      content: '—';
-      color: var(--soft-gold);
-      font-size: 0.7rem;
-    }
-
-    /* ── WHY ── */
-    .why {
-      background: #2C2418;
-      color: white;
-      padding: 8rem 6rem;
-    }
-
-    .why-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 6rem;
-      align-items: center;
-    }
-
-    .why-left .section-title { color: white; }
-    .why-left .section-title em { color: var(--soft-gold); }
-
-    .why-tagline {
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: #8a7a6a;
-      font-weight: 300;
-      margin-top: 1.5rem;
-    }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5px;
-      background: rgba(203,175,110,0.15);
-    }
-
-    .why-item {
-      background: #2C2418;
-      padding: 2.5rem;
-      transition: background 0.3s;
-    }
-
-    .why-item:hover { background: #38311f; }
-
-    .why-item-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .why-item-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-
-    .why-item-text {
-      font-size: 0.82rem;
-      line-height: 1.7;
-      color: #7a6a58;
-      font-weight: 300;
-    }
-
-    /* ── HOW IT WORKS ── */
-    .process {
-      padding: 8rem 6rem;
-      background: var(--cream);
-    }
-
-    .process-header {
-      text-align: center;
-      margin-bottom: 5rem;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
-      position: relative;
-    }
-
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 2rem;
-      left: calc(16.67% + 1.5rem);
-      right: calc(16.67% + 1.5rem);
-      height: 1px;
-      background: linear-gradient(to right, var(--soft-gold), var(--warm-beige), var(--soft-gold));
-    }
-
-    .step {
-      text-align: center;
-      position: relative;
-    }
-
+    /* PROCESS */
+    .process-list { display: flex; flex-direction: column; gap: 0; max-width: 720px; margin: 0 auto; }
+    .process-step { display: flex; gap: 24px; }
+    .process-step-left { display: flex; flex-direction: column; align-items: center; }
     .step-num {
-      width: 4rem;
-      height: 4rem;
-      border-radius: 50%;
-      background: var(--deep-red);
-      color: white;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      position: relative;
-      z-index: 1;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--color-crimson); color: #fff;
+      font-family: var(--font-display); font-size: 19px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .step-line { width: 2px; flex: 1; background: var(--color-border-dark); margin: 8px 0; min-height: 24px; }
+    .step-content { padding-bottom: 40px; display: flex; flex-direction: column; gap: 8px; }
+    .step-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .step-title { font-family: var(--font-display); font-size: 21px; font-weight: 700; color: var(--color-text); }
+    .step-when { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-gold-dark); }
+    .step-body { font-size: 15px; line-height: 1.65; color: var(--color-text-mid); max-width: 56ch; }
 
-    .step-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 0.75rem;
+    /* PRICING */
+    .pricing-section { background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 860px; margin: 0 auto; }
+    .pricing-card {
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-radius: 16px; padding: 40px; display: flex; flex-direction: column; gap: 16px;
     }
-
-    .step-desc {
-      font-size: 0.85rem;
-      line-height: 1.8;
-      color: #6a5a48;
-      font-weight: 300;
+    .pricing-card-highlight {
+      background: var(--color-crimson); border-radius: 16px; padding: 40px;
+      display: flex; flex-direction: column; gap: 16px;
+      box-shadow: 0 8px 40px rgba(122,28,46,0.25);
     }
+    .pricing-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+    .pricing-label-gold { color: var(--color-gold-dark); }
+    .pricing-label-light { color: var(--color-gold-light); }
+    .pricing-amount { font-family: var(--font-display); font-size: 44px; font-weight: 700; line-height: 1; }
+    .pricing-amount-dark { color: var(--color-text); }
+    .pricing-amount-white { color: #fff; }
+    .pricing-amount-unit { font-family: var(--font-body); font-size: 15px; font-weight: 400; }
+    .pricing-amount-unit-dark { color: var(--color-text-muted); }
+    .pricing-amount-unit-light { color: rgba(255,255,255,0.7); }
+    .pricing-desc { font-size: 14px; line-height: 1.65; }
+    .pricing-desc-dark { color: var(--color-text-mid); }
+    .pricing-desc-light { color: rgba(255,255,255,0.85); }
 
-    /* ── SOCIAL PROOF ── */
-    .proof {
-      background: var(--deep-red);
-      padding: 8rem 6rem;
-      color: white;
-      overflow: hidden;
+    /* WHO WE ARE */
+    .who-section { max-width: 1120px; margin: 0 auto; padding: 96px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 56px; align-items: center; }
+    .who-photo {
+      background: var(--color-crimson-bg); border-radius: 20px;
+      min-height: 480px; display: flex; align-items: center; justify-content: center;
+      color: var(--color-text-muted); font-size: 14px; text-align: center; padding: 24px;
+      border: 2px dashed var(--color-border-dark);
     }
+    .who-content { display: flex; flex-direction: column; gap: 20px; }
+    .who-content h2 { font-family: var(--font-display); font-size: clamp(28px, 4vw, 38px); font-weight: 700; }
+    .who-content p { font-size: 16px; line-height: 1.7; color: var(--color-text-mid); }
+    .who-signature { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--color-crimson); }
 
-    .proof-header {
-      text-align: center;
-      margin-bottom: 5rem;
+    /* WHY US */
+    .why-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .why-card {
+      background: #fff; border: 1px solid var(--color-border); border-radius: 16px;
+      padding: 32px; display: flex; flex-direction: column; gap: 12px;
+      box-shadow: 0 1px 4px rgba(26,20,16,0.08);
     }
+    .why-card-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--color-crimson); }
+    .why-card p { font-size: 14px; line-height: 1.65; color: var(--color-text-mid); }
 
-    .proof-header .section-title { color: white; }
-    .proof-header .section-title em { color: var(--soft-gold); }
-    .proof-header .section-label { color: rgba(203,175,110,0.8); }
-    .proof-header .section-label::before { background: rgba(203,175,110,0.8); }
-
-    .testimonials {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      background: rgba(255,255,255,0.1);
+    /* FINAL CTA */
+    .cta-section { background: var(--color-crimson); }
+    .cta-inner {
+      max-width: 1120px; margin: 0 auto; padding: 96px 24px;
+      text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px;
     }
+    .cta-inner h2 { font-family: var(--font-display); font-size: clamp(30px, 5vw, 44px); font-weight: 700; color: #fff; text-wrap: pretty; }
+    .cta-inner p { font-size: 17px; line-height: 1.65; color: rgba(255,255,255,0.85); max-width: 52ch; }
+    .cta-note { font-size: 13px; color: rgba(255,255,255,0.6); }
+    .calendly-wrap { width: min(1060px, 100%); background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(26,20,16,0.25); }
+    .calendly-wrap iframe { width: 100%; height: 620px; border: 0; display: block; }
 
-    .testimonial {
-      background: var(--deep-red);
-      padding: 3rem;
-      transition: background 0.3s;
+    /* FOOTER */
+    footer { background: var(--color-crimson-dark); }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto; padding: 48px 24px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;
     }
+    .footer-brand { display: flex; flex-direction: column; gap: 10px; }
+    .footer-logo { background: #fff; border-radius: 10px; padding: 8px 14px; width: fit-content; font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--color-crimson); }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.6); }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-email { font-size: 14px; color: #fff; font-weight: 600; }
+    .footer-email:hover { color: var(--color-gold-light); }
+    .footer-socials { display: flex; gap: 18px; }
+    .footer-socials a { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .footer-socials a:hover { color: #fff; }
+    .footer-handle { font-size: 12px; color: rgba(255,255,255,0.4); }
 
-    .testimonial:hover { background: var(--crimson); }
+    /* CHECK ICON */
+    .check-icon { flex-shrink: 0; margin-top: 2px; }
 
-    .stars {
-      color: var(--soft-gold);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.2em;
-    }
-
-    .testimonial-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 2rem;
-    }
-
-    .testimonial-author {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--soft-gold);
-      font-weight: 500;
-    }
-
-    .testimonial-location {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 0.25rem;
-      letter-spacing: 0.05em;
-    }
-
-    /* ── CASE STUDY ── */
-    .case-study {
-      padding: 8rem 6rem;
-      background: white;
-    }
-
-    .case-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
-    }
-
-    .case-images {
-      position: relative;
-    }
-
-    .case-img-main {
-      width: 100%;
-      height: 480px;
-      object-fit: cover;
-    }
-
-    .case-badge {
-      position: absolute;
-      top: -1.5rem;
-      right: -1.5rem;
-      background: var(--dark);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      min-width: 160px;
-    }
-
-    .case-badge-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      color: var(--soft-gold);
-      font-weight: 300;
-      line-height: 1;
-    }
-
-    .case-badge-text {
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--light-beige);
-      margin-top: 0.4rem;
-    }
-
-    .case-content .section-label { color: var(--soft-gold); }
-
-    .case-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--dark);
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    .case-result {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--light-beige);
-    }
-
-    .case-result-icon {
-      width: 20px;
-      height: 20px;
-      background: var(--deep-red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .case-result-icon svg {
-      width: 10px;
-      height: 10px;
-      stroke: white;
-      fill: none;
-      stroke-width: 3;
-    }
-
-    .case-result-text {
-      font-size: 0.9rem;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .case-result-text strong {
-      color: var(--deep-red);
-    }
-
-    .case-quote {
-      margin-top: 2rem;
-      padding: 1.5rem 2rem;
-      border-left: 3px solid var(--soft-gold);
-      background: var(--cream);
-    }
-
-    .case-quote p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--dark);
-      line-height: 1.7;
-    }
-
-    .case-quote cite {
-      display: block;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--warm-beige);
-      margin-top: 0.75rem;
-      font-style: normal;
-    }
-
-    /* ── TEAM ── */
-    .team {
-      padding: 8rem 6rem;
-      background: var(--cream);
-    }
-
-    .team-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-
-    .team-card {
-      text-align: center;
-    }
-
-    .team-photo-wrap {
-      position: relative;
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 1.5rem;
-    }
-
-    .team-photo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border: 2px solid var(--soft-gold);
-      border-radius: 50%;
-    }
-
-    .team-photo {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: top;
-    }
-
-    .team-role {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--soft-gold);
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .team-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 0.75rem;
-    }
-
-    .team-bio {
-      font-size: 0.82rem;
-      line-height: 1.7;
-      color: #6a5a48;
-      font-weight: 300;
-    }
-
-    /* ── CTA ── */
-    .cta {
-      background: var(--dark);
-      padding: 8rem 6rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(203,175,110,0.08) 0%, transparent 70%);
-    }
-
-    .cta-content { position: relative; z-index: 1; }
-
-    .cta-eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--soft-gold);
-      font-weight: 500;
-      margin-bottom: 1.5rem;
-    }
-
-    .cta-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      font-weight: 300;
-      color: white;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-
-    .cta-title em { font-style: italic; color: var(--soft-gold); }
-
-    .cta-sub {
-      font-size: 0.95rem;
-      color: #7a6a58;
-      max-width: 500px;
-      margin: 0 auto 3rem;
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
-    .cta-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-contact {
-      margin-top: 3rem;
-      display: flex;
-      gap: 3rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: #8a7a6a;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .cta-contact-item:hover { color: var(--soft-gold); }
-
-    .cta-contact-item span {
-      font-size: 0.9rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #1a1208;
-      padding: 2rem 6rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid rgba(203,175,110,0.1);
-    }
-
-    .footer-text {
-      font-size: 0.7rem;
-      color: #5a4a38;
-      letter-spacing: 0.05em;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .footer-links a {
-      font-size: 0.7rem;
-      color: #5a4a38;
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--soft-gold); }
-
-    /* ── ANIMATIONS ── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    .delay-4 { transition-delay: 0.4s; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      nav { padding: 1rem 2rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 6rem 2rem 3rem; }
-      .hero-right { height: 60vh; }
-      .about { grid-template-columns: 1fr; }
-      .about-content { padding: 4rem 2rem; }
-      .services { padding: 5rem 2rem; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .service-card { border-bottom: 1px solid var(--light-beige); }
-      .why { padding: 5rem 2rem; }
-      .why-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .process { padding: 5rem 2rem; }
-      .steps { grid-template-columns: 1fr; }
-      .steps::before { display: none; }
-      .proof { padding: 5rem 2rem; }
-      .testimonials { grid-template-columns: 1fr; }
-      .case-study { padding: 5rem 2rem; }
-      .case-inner { grid-template-columns: 1fr; }
-      .team { padding: 5rem 2rem; }
-      .team-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .cta { padding: 5rem 2rem; }
-      footer { padding: 1.5rem 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    @media (max-width: 640px) {
+      .cycle-item { flex-direction: column; }
+      .cycle-arrow { justify-content: center; transform: rotate(90deg); }
+      .footer-links { align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">
-      <svg class="nav-logo-flower" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g transform="translate(30,30)">
-          <ellipse rx="8" ry="16" fill="#CBAF6E" transform="rotate(0)"/>
-          <ellipse rx="8" ry="16" fill="#CBAF6E" transform="rotate(60)"/>
-          <ellipse rx="8" ry="16" fill="#CBAF6E" transform="rotate(120)"/>
-          <ellipse rx="8" ry="16" fill="#9B1C31" transform="rotate(30)" opacity="0.5"/>
-          <ellipse rx="8" ry="16" fill="#9B1C31" transform="rotate(90)" opacity="0.5"/>
-          <ellipse rx="8" ry="16" fill="#9B1C31" transform="rotate(150)" opacity="0.5"/>
-          <circle r="5" fill="#2C2418"/>
-        </g>
-      </svg>
-      <div class="nav-logo-text">
-        CO-HOST
-        <span>SOLUTIONS</span>
-      </div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#how">How It Works</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#contact" class="nav-cta">Get Started</a></li>
-    </ul>
-  </nav>
+  <!-- STICKY HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-text">Co-Host <span>Solutions</span></div>
+      <a href="#book-assessment" class="btn-primary">Book Free Assessment →</a>
+    </div>
+  </header>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow fade-up">Optimized Hosting. Maximum Bookings.</div>
-      <h1 class="hero-title fade-up delay-1">
-        Your unit,<br/><em>earning</em> while<br/>you rest.
-      </h1>
-      <p class="hero-subtitle fade-up delay-2">
-        Co-Host Solutions manages your short-term rental from listing to check-out — 
-        so you receive monthly income without the daily work.
-      </p>
-      <div class="hero-actions fade-up delay-3">
-        <a href="#contact" class="btn-primary">Let's Talk</a>
-        <a href="#services" class="btn-outline">What We Do</a>
+  <section>
+    <div class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Cagayan de Oro · Short-Term Rental Management</div>
+        <h1>Your CDO Unit. Professionally Managed. Earning, yet Fully Hands-Off.</h1>
+        <p class="hero-subtext">We run the marketing, the guests, and the pricing so your unit earns every possible night. You collect the income without spending a single hour on it.</p>
+        <div>
+          <a href="#book-assessment" class="btn-primary btn-primary-lg">Book Your Free Unit Assessment →</a>
+        </div>
+        <p class="hero-location">Serving Avida Aspira, Mesaverte, and CDO's most in-demand condo buildings.</p>
       </div>
-    </div>
-    <div class="hero-right">
-      <img
-        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80"
-        alt="Beautiful well-managed rental property"
-      />
-      <div class="hero-badge fade-up delay-4">
-        <div class="hero-badge-num">80%+</div>
-        <div class="hero-badge-label">Average Occupancy Rate</div>
+      <div class="hero-image">
+        Drop a hero photo of a CDO unit (balcony or ocean view)
       </div>
     </div>
   </section>
 
-  <!-- MARQUEE -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-inner">
-      <span>Airbnb Management</span><span class="dot">✦</span>
-      <span>Booking.com</span><span class="dot">✦</span>
-      <span>Agoda Listings</span><span class="dot">✦</span>
-      <span>Dynamic Pricing</span><span class="dot">✦</span>
-      <span>Guest Communication</span><span class="dot">✦</span>
-      <span>Professional Photography</span><span class="dot">✦</span>
-      <span>Housekeeping Coordination</span><span class="dot">✦</span>
-      <span>Monthly Reporting</span><span class="dot">✦</span>
-      <span>Airbnb Management</span><span class="dot">✦</span>
-      <span>Booking.com</span><span class="dot">✦</span>
-      <span>Agoda Listings</span><span class="dot">✦</span>
-      <span>Dynamic Pricing</span><span class="dot">✦</span>
-      <span>Guest Communication</span><span class="dot">✦</span>
-      <span>Professional Photography</span><span class="dot">✦</span>
-      <span>Housekeeping Coordination</span><span class="dot">✦</span>
-      <span>Monthly Reporting</span><span class="dot">✦</span>
+  <!-- STATS BAR -->
+  <section class="stats-bar">
+    <div class="stats-inner">
+      <div>
+        <div class="stat-number">80%</div>
+        <div class="stat-label">Avg Occupancy in Year One</div>
+      </div>
+      <div>
+        <div class="stat-number">₱36–84K</div>
+        <div class="stat-label">Monthly Gross Per Unit</div>
+      </div>
+      <div>
+        <div class="stat-number">6+</div>
+        <div class="stat-label">Locations and growing</div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-images">
-      <img
-        class="about-img-main"
-        src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80"
-        alt="Co-Host Solutions founder and team"
-      />
-      <img
-        class="about-img-overlay"
-        src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80"
-        alt="Beautifully styled rental interior"
-      />
-    </div>
-    <div class="about-content">
-      <div class="section-label">Who We Are</div>
-      <h2 class="about-title">Built by people<br/>who've <em>done this.</em></h2>
-      <p class="about-text">
-        Co-Host Solutions was founded by Jasmin Cornilla — a seasoned short-term rental operator with hands-on experience managing 50+ listings remotely across Bali and 30+ listings on-site across the Philippines, with hotel and resort partnerships nationwide.
-      </p>
-      <p class="about-text">
-        Our team is fully Filipino, deeply familiar with local travel behavior, and built around one mission: make short-term rentals simple, profitable, and stress-free for property owners.
-      </p>
-      <div class="about-stats">
-        <div>
-          <div class="stat-num">80+</div>
-          <div class="stat-label">Properties Managed</div>
+  <!-- IS THIS FOR YOU -->
+  <section>
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="eyebrow">Is this for you?</div>
+        <h2>Three kinds of owners come to us.</h2>
+      </div>
+      <div class="owner-cards">
+        <div class="owner-card">
+          <div class="eyebrow">The First-Timer</div>
+          <div class="owner-card-quote">"I own a CDO unit and I've been thinking about Airbnb."</div>
+          <p>Skip the months of trial and error. We set everything up and your unit starts earning from day one.</p>
         </div>
-        <div>
-          <div class="stat-num">4.9★</div>
-          <div class="stat-label">Average Guest Rating</div>
+        <div class="owner-card">
+          <div class="eyebrow">The Burned-Out Host</div>
+          <div class="owner-card-quote">"I'm already on Airbnb but I'm tired of running it myself."</div>
+          <p>Hand it over. We take the listings, the messages, the marketing. You get your time back and the income keeps coming.</p>
         </div>
-        <div>
-          <div class="stat-num">CDO · Cebu · Manila</div>
-          <div class="stat-label">Cities We Serve</div>
+        <div class="owner-card">
+          <div class="eyebrow">The Multi-Unit Owner</div>
+          <div class="owner-card-quote">"I have two or more units and I need a real team."</div>
+          <p>We manage portfolios, not just single listings. More units earning, zero added workload, one dashboard to watch it all.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="services-header fade-up">
-      <div class="section-label" style="justify-content:center;">What We Do</div>
-      <h2 class="section-title">Done-for-you <em>property</em><br/>management</h2>
-    </div>
-    <div class="services-grid">
-      <div class="service-card fade-up">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="6" y="14" width="28" height="20" rx="2"/>
-            <path d="M14 14V10a6 6 0 0 1 12 0v4"/>
-            <circle cx="20" cy="24" r="2" fill="currentColor"/>
-          </svg>
-        </div>
-        <div class="service-name">Setup</div>
-        <div class="service-desc">We prepare your unit for success from the ground up.</div>
-        <ul class="service-items">
-          <li>Renovation consultation</li>
-          <li>Interior styling guidance</li>
-          <li>Professional photography</li>
-          <li>Multi-platform listing creation</li>
-        </ul>
+  <!-- WHAT WE DO -->
+  <section>
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="eyebrow">End-to-end operations</div>
+        <h2>One complete guest cycle. We run all of it.</h2>
+        <p style="font-size:16px;color:var(--color-text-mid);max-width:62ch;margin:0 auto">From the moment a guest discovers your unit to the moment it's reset for the next one, every step is handled by Co-Host Solutions. More booked nights, none of your hours.</p>
       </div>
-      <div class="service-card fade-up delay-1">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M8 12h24M8 20h16M8 28h8"/>
-            <circle cx="32" cy="28" r="5"/>
-            <path d="M30 28l1.5 1.5 3-3"/>
-          </svg>
+
+      <div class="cycle-wrap">
+        <!-- Step 1 -->
+        <div class="cycle-item">
+          <div class="cycle-card">
+            <div class="cycle-card-head">
+              <div class="cycle-num">1</div>
+              <div class="cycle-tag">Attract</div>
+            </div>
+            <div class="cycle-title">Discover &amp; Book</div>
+            <p class="cycle-body">Social media content, posts, and promos plus optimized listings on every OTA and dynamic pricing bring the guest in and close the booking.</p>
+          </div>
+          <div class="cycle-arrow">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7A1C2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </div>
         </div>
-        <div class="service-name">Management</div>
-        <div class="service-desc">Every booking, message, and turnover — handled.</div>
-        <ul class="service-items">
-          <li>Guest communication 24/7</li>
-          <li>Check-in coordination</li>
-          <li>Cleaning & turnover scheduling</li>
-          <li>Calendar synchronization</li>
-        </ul>
+        <!-- Step 2 -->
+        <div class="cycle-item">
+          <div class="cycle-card">
+            <div class="cycle-card-head">
+              <div class="cycle-num">2</div>
+              <div class="cycle-tag">Prepare</div>
+            </div>
+            <div class="cycle-title">Pre-Arrival</div>
+            <p class="cycle-body">Guest screening, confirmations, directions, and check-in instructions. Every guest message is answered by us.</p>
+          </div>
+          <div class="cycle-arrow">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7A1C2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="cycle-item">
+          <div class="cycle-card">
+            <div class="cycle-card-head">
+              <div class="cycle-num">3</div>
+              <div class="cycle-tag">Host</div>
+            </div>
+            <div class="cycle-title">The Stay</div>
+            <p class="cycle-body">Check-in support, 24/7 guest communication, and on-the-ground caretaker coordination while the guest is in your unit.</p>
+          </div>
+          <div class="cycle-arrow">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7A1C2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </div>
+        </div>
+        <!-- Step 4 -->
+        <div class="cycle-item">
+          <div class="cycle-card">
+            <div class="cycle-card-head">
+              <div class="cycle-num">4</div>
+              <div class="cycle-tag">Reset</div>
+            </div>
+            <div class="cycle-title">Checkout &amp; Turnover</div>
+            <p class="cycle-body">Checkout, cleaning and turnover coordination, maintenance and repairs, vendor management. The unit is reset to standard.</p>
+          </div>
+          <div class="cycle-arrow">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7A1C2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </div>
+        </div>
+        <!-- Step 5 -->
+        <div class="cycle-item">
+          <div class="cycle-card">
+            <div class="cycle-card-head">
+              <div class="cycle-num">5</div>
+              <div class="cycle-tag">Grow</div>
+            </div>
+            <div class="cycle-title">Review &amp; Optimize</div>
+            <p class="cycle-body">Review management, guest follow-ups, fresh social media content, and pricing adjustments that push the next cycle higher.</p>
+          </div>
+        </div>
+        <!-- Repeat card -->
+        <div class="cycle-repeat">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1C2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+          <div class="cycle-repeat-title">And the cycle repeats.</div>
+          <p>Five-star reviews feed better rankings, better rankings feed more bookings. Every cycle compounds.</p>
+        </div>
       </div>
-      <div class="service-card fade-up delay-2">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M8 30 L16 18 L22 24 L28 14 L34 10"/>
-            <circle cx="34" cy="10" r="2" fill="currentColor"/>
-          </svg>
+
+      <div class="dashboard-banner">
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px">Your only job</div>
+          <div class="dashboard-banner-title">Watch it all happen from your own custom owner dashboard.</div>
         </div>
-        <div class="service-name">Optimization</div>
-        <div class="service-desc">We maximize your revenue through smart, data-driven adjustments.</div>
-        <ul class="service-items">
-          <li>Dynamic pricing adjustments</li>
-          <li>Review management</li>
-          <li>Monthly performance reports</li>
-          <li>Airbnb SEO optimization</li>
-        </ul>
-      </div>
-      <div class="service-card fade-up delay-3">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="20" cy="20" r="12"/>
-            <path d="M20 8v4M20 28v4M8 20h4M28 20h4"/>
-            <circle cx="20" cy="20" r="4"/>
-          </svg>
+        <div class="you-handle-list">
+          <div class="you-handle-item">
+            <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A6020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Monitor everything via your own custom owner dashboard, always visible to you
+          </div>
+          <div class="you-handle-item">
+            <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A6020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Full access to all OTA accounts and housekeeping communication
+          </div>
+          <div class="you-handle-item">
+            <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A6020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Collect your payout. That's it.
+          </div>
         </div>
-        <div class="service-name">Marketing</div>
-        <div class="service-desc">Your property gets noticed across all the right channels.</div>
-        <ul class="service-items">
-          <li>OTA listing optimization</li>
-          <li>Social media exposure</li>
-          <li>Digital advertising (optional)</li>
-          <li>Personalized guidebooks</li>
-        </ul>
       </div>
     </div>
   </section>
 
-  <!-- WHY -->
-  <section class="why">
-    <div class="why-inner">
-      <div class="why-left fade-up">
-        <div class="section-label" style="color: var(--soft-gold);">Why Us</div>
-        <h2 class="section-title" style="color:white;">We win only<br/>when <em>you</em> win.</h2>
-        <p class="why-tagline">
-          Our commission-based model means our success is directly tied to yours. No hidden fees. No upfront monthly charges. We earn only when your unit earns.
-        </p>
+  <!-- EARNINGS -->
+  <section class="earnings-section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="eyebrow">Real CDO numbers</div>
+        <h2>What your unit could earn.</h2>
       </div>
-      <div class="why-grid fade-up delay-1">
-        <div class="why-item">
-          <div class="why-item-icon">🏠</div>
-          <div class="why-item-title">Proven Systems</div>
-          <div class="why-item-text">Built from experience running 80%+ occupancy units across multiple markets.</div>
+      <div class="earnings-grid">
+        <div class="earning-card">
+          <div class="earning-type">Studio Unit</div>
+          <div class="earning-gross">₱36–60K</div>
+          <div class="earning-details">
+            <div class="earning-row"><span>Nightly rate</span><span>₱1,500–2,500</span></div>
+            <div class="earning-row"><span>Occupancy</span><span>80%</span></div>
+          </div>
+          <div class="earning-month">Monthly gross</div>
         </div>
-        <div class="why-item">
-          <div class="why-item-icon">🇵🇭</div>
-          <div class="why-item-title">Filipino-First Team</div>
-          <div class="why-item-text">Deeply familiar with local travel behavior, guest expectations, and market timing.</div>
+        <div class="earning-card">
+          <div class="earning-type">1-Bedroom Unit</div>
+          <div class="earning-gross">₱60–84K</div>
+          <div class="earning-details">
+            <div class="earning-row"><span>Nightly rate</span><span>₱2,500–3,500</span></div>
+            <div class="earning-row"><span>Occupancy</span><span>80%</span></div>
+          </div>
+          <div class="earning-month">Monthly gross</div>
         </div>
-        <div class="why-item">
-          <div class="why-item-icon">📊</div>
-          <div class="why-item-title">Full Transparency</div>
-          <div class="why-item-text">Monthly reports showing exactly what was earned, spent, and recommended.</div>
+        <div class="earning-card">
+          <div class="earning-type">House</div>
+          <div class="earning-gross">₱84–132K</div>
+          <div class="earning-details">
+            <div class="earning-row"><span>Nightly rate</span><span>₱3,500–5,500</span></div>
+            <div class="earning-row"><span>Occupancy</span><span>80%</span></div>
+          </div>
+          <div class="earning-month">Monthly gross</div>
         </div>
-        <div class="why-item">
-          <div class="why-item-icon">✨</div>
-          <div class="why-item-title">No Hidden Fees</div>
-          <div class="why-item-text">What you see is what you get. Clear partnership structure from day one.</div>
-        </div>
+      </div>
+      <p class="earnings-note">Based on current CDO market data, Tier 2 PH STR market. Reflects realistic performance under professional management with dynamic pricing.</p>
+      <div class="earnings-callout">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A1C2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>
+        <p><strong style="color:var(--color-text)">Peak seasons pay more.</strong> Higalaay (August), graduation season (March–April), Holy Week, and December can push occupancy to 80–90% and rates 30–50% above baseline. We manage these peaks actively.</p>
       </div>
     </div>
   </section>
 
   <!-- PROCESS -->
-  <section class="process" id="how">
-    <div class="process-header fade-up">
-      <div class="section-label" style="justify-content:center;">How It Works</div>
-      <h2 class="section-title">Three steps to<br/><em>passive income.</em></h2>
-    </div>
-    <div class="steps">
-      <div class="step fade-up">
-        <div class="step-num">1</div>
-        <div class="step-title">Confirm the Proposal</div>
-        <div class="step-desc">Review and confirm the partnership structure. We align on goals, unit details, and the setup plan together.</div>
+  <section>
+    <div class="section-inner">
+      <div class="section-header" style="margin-bottom:56px">
+        <div class="eyebrow">How it works</div>
+        <h2>From first call to fully managed.</h2>
       </div>
-      <div class="step fade-up delay-1">
-        <div class="step-num">2</div>
-        <div class="step-title">Sign &amp; Begin Setup</div>
-        <div class="step-desc">Formalize the agreement and we begin preparing your unit — styling, photography, and platform listings.</div>
-      </div>
-      <div class="step fade-up delay-2">
-        <div class="step-num">3</div>
-        <div class="step-title">We Handle the Rest</div>
-        <div class="step-desc">Go live within 7–14 days. Monthly payouts and performance reports follow every cycle.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="proof">
-    <div class="proof-header fade-up">
-      <div class="section-label" style="justify-content:center; color: rgba(203,175,110,0.8);">What Owners Say</div>
-      <h2 class="section-title">Real owners. <em>Real results.</em></h2>
-    </div>
-    <div class="testimonials">
-      <div class="testimonial fade-up">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"We didn't even lift a finger and now have a revenue-generating place we can come home to anytime. We're already getting a second unit."</p>
-        <div class="testimonial-author">Property Owner</div>
-        <div class="testimonial-location">Mesaverte Residences, Cagayan de Oro</div>
-      </div>
-      <div class="testimonial fade-up delay-1">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"The team is incredibly responsive. Guests love the experience, reviews have been amazing, and the monthly reports keep us in the loop without any stress."</p>
-        <div class="testimonial-author">Condo Owner</div>
-        <div class="testimonial-location">Cebu City</div>
-      </div>
-      <div class="testimonial fade-up delay-2">
-        <div class="stars">★★★★★</div>
-        <p class="testimonial-text">"I was hesitant at first, but the Co-Host Solutions team made it seamless. Our unit went from vacant to consistently booked within two weeks of going live."</p>
-        <div class="testimonial-author">First-time Host</div>
-        <div class="testimonial-location">Manila</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDY -->
-  <section class="case-study">
-    <div class="case-inner">
-      <div class="case-images fade-up">
-        <img
-          class="case-img-main"
-          src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=80"
-          alt="Mesaverte Residences CDO case study"
-        />
-        <div class="case-badge">
-          <div class="case-badge-num">4.9</div>
-          <div class="case-badge-text">★ Guest Rating</div>
-        </div>
-      </div>
-      <div class="case-content fade-up delay-1">
-        <div class="section-label">Case Study</div>
-        <h2 class="case-title">Mesaverte Residences,<br/>Cagayan de Oro</h2>
-        <div class="case-result">
-          <div class="case-result-icon">
-            <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2"/></svg>
+      <div class="process-list">
+        <div class="process-step">
+          <div class="process-step-left">
+            <div class="step-num">1</div>
+            <div class="step-line"></div>
           </div>
-          <div class="case-result-text">Before: <strong>Vacant</strong>, fully furnished unit with no listing and zero income.</div>
-        </div>
-        <div class="case-result">
-          <div class="case-result-icon">
-            <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2"/></svg>
+          <div class="step-content">
+            <div class="step-head">
+              <div class="step-title">Free Assessment Call</div>
+              <div class="step-when">Day 1</div>
+            </div>
+            <p class="step-body">Book a 30-minute call with Coco. We look at your unit, your goals, and whether the partnership makes sense. No commitment.</p>
           </div>
-          <div class="case-result-text">After: <strong>80% average occupancy</strong> within the first season of listing.</div>
         </div>
-        <div class="case-result">
-          <div class="case-result-icon">
-            <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2"/></svg>
+        <div class="process-step">
+          <div class="process-step-left">
+            <div class="step-num">2</div>
+            <div class="step-line"></div>
           </div>
-          <div class="case-result-text"><strong>₱30,000–₱40,000</strong> monthly gross income consistently generated.</div>
-        </div>
-        <div class="case-result">
-          <div class="case-result-icon">
-            <svg viewBox="0 0 10 10"><polyline points="1,5 4,8 9,2"/></svg>
+          <div class="step-content">
+            <div class="step-head">
+              <div class="step-title">Proposal and Quote</div>
+              <div class="step-when">Within 24 hours after your call</div>
+            </div>
+            <p class="step-body">You get a custom proposal: revenue projections for your specific unit, the full scope of what we'll manage, and clear pricing.</p>
           </div>
-          <div class="case-result-text"><strong>4.9★ guest rating</strong> across Airbnb, Booking.com, and direct bookings.</div>
         </div>
-        <div class="case-quote">
-          <p>"We didn't even lift a finger and we now have a revenue generating place that we can come home to anytime. Now we're getting a second unit!"</p>
-          <cite>— Unit Owner, Mesaverte Residences CDO</cite>
+        <div class="process-step">
+          <div class="process-step-left">
+            <div class="step-num">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-head">
+              <div class="step-title">Onboarding</div>
+              <div class="step-when">Week 1</div>
+            </div>
+            <p class="step-body">Once you sign, we move fast. Listing audit, co-host setup, pricing loaded, dashboard access granted. You're in the system.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-left">
+            <div class="step-num">4</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-head">
+              <div class="step-title">Production</div>
+              <div class="step-when">Weeks 2–3</div>
+            </div>
+            <p class="step-body">Professional photoshoot. Rebuilt listings. Social media launched. OTA channels live. Full content strategy running.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-left">
+            <div class="step-num">5</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-head">
+              <div class="step-title">Fully Managed</div>
+              <div class="step-when">Ongoing</div>
+            </div>
+            <p class="step-body">We run the full guest cycle end to end: marketing, guests, turnovers, maintenance coordination. You monitor via your dashboard.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-step-left">
+            <div class="step-num">6</div>
+          </div>
+          <div class="step-content">
+            <div class="step-head">
+              <div class="step-title">Payout &amp; Monthly Report</div>
+              <div class="step-when">Every month</div>
+            </div>
+            <p class="step-body">You wait for your payout and your monthly performance report. That's the whole job.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TEAM -->
-  <section class="team" id="team">
-    <div class="team-header fade-up">
-      <div class="section-label" style="justify-content:center;">Our Team</div>
-      <h2 class="section-title">Meet your <em>Co-Host</em> team</h2>
-    </div>
-    <div class="team-grid">
-      <div class="team-card fade-up">
-        <div class="team-photo-wrap">
-          <img
-            class="team-photo"
-            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80"
-            alt="Coco Cornilla – Account Manager"
-          />
-        </div>
-        <div class="team-role">Account Manager</div>
-        <div class="team-name">Jasmin "Coco" Cornilla</div>
-        <div class="team-bio">Your main point of contact. Tracks ROI, reports, and goals. Founder with 80+ properties under management across the Philippines and Bali.</div>
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="eyebrow">Transparent pricing</div>
+        <h2>What it costs. No hidden fees.</h2>
       </div>
-      <div class="team-card fade-up delay-1">
-        <div class="team-photo-wrap">
-          <img
-            class="team-photo"
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
-            alt="Carlos Arce II – Virtual Front Desk"
-          />
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-label pricing-label-gold">One-Time Onboarding Fee</div>
+          <div class="pricing-amount pricing-amount-dark">₱10,000<span class="pricing-amount-unit pricing-amount-unit-dark"> / unit</span></div>
+          <p class="pricing-desc pricing-desc-dark">Full listing rebuild, professional photoshoot, dashboard setup, social media takeover, OTA setup, pricing strategy, guest communication templates, plus annual photoshoot, copy refresh, and pricing review, every year. <strong style="color:var(--color-text)">No renewal fees, ever.</strong></p>
         </div>
-        <div class="team-role">Virtual Front Desk</div>
-        <div class="team-name">Carlos Arce II</div>
-        <div class="team-bio">Guest messages, reviews, and rebookings handled with care. Available around the clock to ensure every guest inquiry is addressed promptly.</div>
-      </div>
-      <div class="team-card fade-up delay-2">
-        <div class="team-photo-wrap">
-          <img
-            class="team-photo"
-            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80"
-            alt="Housekeeping Team"
-          />
+        <div class="pricing-card-highlight">
+          <div class="pricing-label pricing-label-light">Monthly Management Commission</div>
+          <div class="pricing-amount pricing-amount-white">20%<span class="pricing-amount-unit pricing-amount-unit-light"> of gross booking revenue</span></div>
+          <p class="pricing-desc pricing-desc-light">All listing management, all social media and marketing, all guest communication, pricing optimization, review management, monthly performance reports. <strong style="color:#fff">You keep 80% of every booking.</strong></p>
         </div>
-        <div class="team-role">Housekeeping Team</div>
-        <div class="team-name">Don &amp; Keyt Ipanag</div>
-        <div class="team-bio">Manages a trained and reliable housekeeping crew, ensuring every unit is guest-ready at every turnover — every single time.</div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta" id="contact">
-    <div class="cta-content">
-      <div class="cta-eyebrow fade-up">Ready to Start?</div>
-      <h2 class="cta-title fade-up delay-1">
-        Your unit doesn't<br/>have to stay <em>idle.</em>
-      </h2>
-      <p class="cta-sub fade-up delay-2">
-        Let's make it work. We're ready when you are.
-      </p>
-      <div class="cta-actions fade-up delay-3">
-        <a href="mailto:office@co-hostsolutions.com" class="btn-primary">Email Us Today</a>
-        <a href="tel:+639958193671" class="btn-outline" style="color: var(--light-beige); border-color: rgba(203,175,110,0.3);">+63 995 819 3671</a>
+  <!-- WHO WE ARE -->
+  <section>
+    <div class="who-section">
+      <div class="who-photo">Drop Coco's photo here</div>
+      <div class="who-content">
+        <div class="eyebrow">Who we are</div>
+        <h2>We don't just market units. We operate them too.</h2>
+        <p>I'm Jasmin "Coco" Cornilla, founder of Co-Host Solutions. Before I started managing units for other owners, I was managing 50+ listings remotely across Bali and 30+ on the ground across the Philippines: Cebu, Leyte, Manila, and CDO.</p>
+        <p>I know this market. I operate my own units. Every system, every pricing strategy, every piece of content we create for your unit is something we've already tested on properties we operate ourselves.</p>
+        <p>Co-Host Solutions was built for Filipino property owners, by Filipinos who understand how this market actually works. We're not importing a playbook from somewhere else. This is ours, and it works.</p>
+        <div class="who-signature">Coco</div>
       </div>
-      <div class="cta-contact fade-up delay-4">
-        <a href="mailto:office@co-hostsolutions.com" class="cta-contact-item">
-          <span>✉</span> office@co-hostsolutions.com
-        </a>
-        <a href="https://www.co-hostsolutions.com" class="cta-contact-item" target="_blank" rel="noopener">
-          <span>🌐</span> www.co-hostsolutions.com
-        </a>
-        <span class="cta-contact-item">
-          <span>📍</span> Cagayan de Oro · Cebu · Manila
-        </span>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section>
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="eyebrow">Why Co-Host Solutions</div>
+        <h2>Three reasons owners stay with us.</h2>
+      </div>
+      <div class="why-cards">
+        <div class="why-card">
+          <div class="why-card-title">We know CDO.</div>
+          <p>We operate our own units. Our pricing, positioning, and content are built from what actually works in this market, not generic STR advice.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-title">You never lose visibility.</div>
+          <p>Your custom owner dashboard gives you full access to your bookings, your calendar, and your performance at any time. We run the operation. You watch everything.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-title">We earn when you earn.</div>
+          <p>20% commission means our incentive is exactly aligned with yours: more bookings, better guests, stronger performance. No flat fee whether we perform or not.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="book-assessment" class="cta-section">
+    <div class="cta-inner">
+      <h2>Your unit could be earning more. Let's find out.</h2>
+      <p>Book a free 30-minute assessment. We'll look at your unit, your goals, and what you could realistically earn under professional management. No pressure. No obligation.</p>
+      <div class="cta-note">CDO units only. Assessment is completely free. Pick a time below.</div>
+      <div class="calendly-wrap">
+        <iframe src="https://calendly.com/office-co-hostsolutions/assessment-call?hide_gdpr_banner=1&embed_type=Inline&embed_domain=1" title="Book your free assessment call"></iframe>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-text">© 2025 Co-Host Solutions. All rights reserved.</div>
-    <div class="footer-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Co-Host Solutions</div>
+        <div class="footer-tagline">Professional STR Management for CDO Property Owners.</div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:office@co-hostsolutions.com" class="footer-email">office@co-hostsolutions.com</a>
+        <div class="footer-socials">
+          <a href="https://instagram.com/co.hostsolutions" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://facebook.com/co.hostsolutions" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://tiktok.com/@co.hostsolutions" target="_blank" rel="noopener">TikTok</a>
+        </div>
+        <div class="footer-handle">@co.hostsolutions across platforms</div>
+      </div>
     </div>
   </footer>
 
-  <script>
-    // Intersection Observer for fade-up animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // Nav scroll effect
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 50) {
-        nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.08)';
-      } else {
-        nav.style.boxShadow = 'none';
-      }
-    });
-  </script>
 </body>
 </html>
