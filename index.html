@@ -7,7 +7,7 @@
   <meta name="description" content="Professional short-term rental management for CDO property owners. We run the marketing, guests, and pricing so your unit earns every possible night.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;0,900;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,7 +24,7 @@
       --color-text-muted: #8C7B72;
       --color-border: #E5DDD6;
       --color-border-dark: #C8B8A8;
-      --font-display: 'Playfair Display', Georgia, serif;
+      --font-display: 'Merriweather', Georgia, serif;
       --font-body: 'Nunito', system-ui, sans-serif;
     }
 
@@ -42,7 +42,7 @@
       background-color: rgba(255,255,255,0.95);
     }
     .header-inner {
-      max-width: 1120px; margin: 0 auto; padding: 14px 24px;
+      max-width: 1120px; margin: 0 auto; padding: 10px 24px;
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
     .logo-text {
@@ -85,6 +85,7 @@
     .hero h1 {
       font-family: var(--font-display); font-size: clamp(34px, 5vw, 52px);
       font-weight: 700; line-height: 1.15; color: var(--color-text);
+      text-wrap: pretty; max-width: 555px;
     }
     .hero-subtext { font-size: 18px; line-height: 1.65; color: var(--color-text-mid); max-width: 48ch; }
     .hero-location { font-size: 14px; color: var(--color-text-muted); }
