@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;800&family=Inter:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+@font-face { font-family: 'Merriweather'; src: url('/assets/fonts/Merriweather-Light.ttf') format('truetype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Merriweather'; src: url('/assets/fonts/Merriweather-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Merriweather'; src: url('/assets/fonts/Merriweather-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Merriweather'; src: url('/assets/fonts/Merriweather-UltraBold.ttf') format('truetype'); font-weight: 800; font-display: swap; }
+
+@font-face { font-family: 'TT Norms'; src: url('/assets/fonts/TTNorms-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'TT Norms'; src: url('/assets/fonts/TTNorms-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'TT Norms'; src: url('/assets/fonts/TTNorms-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'TT Norms'; src: url('/assets/fonts/TTNorms-Black.otf') format('opentype'); font-weight: 900; font-display: swap; }
 
 :root {
   --crimson: #7A1C2E; --crimson-dark: #5C1220; --crimson-light: #9B2540; --crimson-bg: #F9F0F2;
@@ -6,7 +16,7 @@
   --paper: #FAF8F5; --surface: #FFFFFF; --border: #EDE8E0; --border-dark: #D6CFC4;
   --ink: #1A1410; --ink-mid: #4A4238; --ink-muted: #8A7E72; --ink-light: #B8AFA4;
   --font-display: 'Merriweather', Georgia, serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'TT Norms', system-ui, -apple-system, sans-serif;
   --wrap: 1140px; --radius: 4px;
   --shadow-sm: 0 1px 3px rgba(26,20,16,0.06), 0 1px 2px rgba(26,20,16,0.04);
   --shadow-md: 0 8px 24px rgba(26,20,16,0.08), 0 2px 6px rgba(26,20,16,0.05);
