@@ -13,7 +13,7 @@ export default function Home() {
       <header className="site-header" style={{ backgroundColor: "var(--color-surface)" }}>
         <div className="wrap nav">
           <a className="nav-logo" href="/">
-            <img src="assets/logo-cohost-horizontal.png" alt="Co-Host Solutions" />
+            <img src="/assets/logo-cohost-horizontal.png" alt="Co-Host Solutions" />
           </a>
           <ul className="nav-links">
             <li><a href="#solutions">How it works</a></li>
@@ -73,7 +73,7 @@ export default function Home() {
             </div>
             <div className="hero-visual">
               <img
-                src="./jasmin-logo-2--mrt17mi7-yxet.png"
+                src="/assets/jasmin-logo-2--mrt17mi7-yxet.png"
                 alt=""
                 className="hero-card-seal"
                 width="96"
@@ -531,7 +531,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="wrap footer-grid">
           <div className="footer-brand">
-            <img src="assets/logo-cohost-horizontal.png" alt="Co-Host Solutions" />
+            <img src="/assets/logo-cohost-horizontal.png" alt="Co-Host Solutions" />
             <p>Professional short-term rental management. We operate so you don't have to.</p>
             <p className="footer-tagline">80+ properties. 24/7 support. You keep 80%.</p>
           </div>
