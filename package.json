@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@types/dompurify": "^3.0.5",
+    "@vercel/kv": "^3.0.0",
+    "cookie": "^2.0.1",
     "dompurify": "^3.4.12",
     "gray-matter": "^4.0.3",
+    "jose": "^6.2.4",
     "markdown-it": "^14.3.0",
     "next": "16.2.10",
     "next-mdx-remote": "^6.0.0",
