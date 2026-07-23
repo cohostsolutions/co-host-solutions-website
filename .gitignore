@@ -2,3 +2,12 @@ node_modules/
 *.log
 .next/
 out/
+app/
+components/
+package.json
+package-lock.json
+tsconfig.json
+eslint.config.mjs
+postcss.config.mjs
+tailwind.config.ts
+next-env.d.ts
