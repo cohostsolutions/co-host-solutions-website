@@ -1,6 +1,6 @@
 {
-  "buildCommand": "next build",
-  "outputDirectory": "out",
+  "public": ".",
+  "cleanUrls": true,
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
   }
