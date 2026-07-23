@@ -1,4 +1,6 @@
 {
+  "buildCommand": "next build",
+  "outputDirectory": "out",
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
   }
